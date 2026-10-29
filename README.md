@@ -7,6 +7,8 @@
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?style=for-the-badge&logo=mysql)](https://www.mysql.com/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Font Awesome](https://img.shields.io/badge/Font_Awesome-6-528DD7?style=for-the-badge&logo=font-awesome)](https://fontawesome.com/)
+[![Docker](https://img.shields.io/badge/Docker-28.5-2496ED?style=for-the-badge&logo=docker)](https://www.docker.com/)
+[![Docker Compose](https://img.shields.io/badge/Docker_Compose-v2-2496ED?style=for-the-badge&logo=docker)](https://docs.docker.com/compose/)
 [![OAuth 2.0](https://img.shields.io/badge/Google-OAuth_2.0-EA4335?style=for-the-badge&logo=google)](https://developers.google.com/identity)
 
 ---
@@ -17,11 +19,17 @@ Dự án được cấu trúc theo mô hình **Monorepo** bao gồm 3 phân hệ
 
 ```
 c:/hoc/dongho/
-├── backend/        # RESTful API Gateway (Node.js, Express, Sequelize ORM, MySQL)
-├── frontend/       # Client Boutique Storefront (Next.js 16, App Router, Haute Horlogerie UX)
-├── fe-admin/       # Quản Trị Nội Bộ & Vận Hành Boutique (Next.js 16, ERP & POS Portal)
-├── .gitignore      # Cấu hình bỏ qua dependencies, cache build, file nhạy cảm
-└── README.md       # Tài liệu dự án
+├── backend/            # RESTful API Gateway (Node.js, Express, Sequelize ORM, MySQL)
+│   └── Dockerfile      # Docker build cho Backend
+├── frontend/           # Client Boutique Storefront (Next.js 16, App Router, Haute Horlogerie UX)
+│   └── Dockerfile      # Multi-stage Docker build cho Frontend
+├── fe-admin/           # Quản Trị Nội Bộ & Vận Hành Boutique (Next.js 16, ERP & POS Portal)
+│   └── Dockerfile      # Multi-stage Docker build cho Admin Portal
+├── docker/
+│   └── mysql/init.sql  # Script khởi tạo Database UTF-8 & phân quyền cho MySQL container
+├── docker-compose.yml  # Điều phối trọn bộ 4 container (MySQL, Backend, Frontend, Fe-Admin)
+├── .gitignore          # Cấu hình loại trừ dependencies, cache build, file bảo mật
+└── README.md           # Tài liệu hướng dẫn dự án
 ```
 
 ### 1. Phân Hệ Client Boutique (`frontend/` - Port `3000`)
@@ -74,7 +82,38 @@ Hệ thống đã được nạp sẵn dữ liệu tài khoản thật trong dat
 
 ## 🚀 Hướng Dẫn Cài Đặt & Khởi Chạy (Getting Started)
 
-### 1. Yêu Cầu Hệ Thống
+### 🐳 Cách 1: Khởi Chạy Nhanh Toàn Bộ Bằng Docker (Khuyến Nghị)
+
+Chỉ cần một câu lệnh duy nhất để khởi động toàn bộ 4 dịch vụ (MySQL Database, Backend API, Client Boutique, Admin Portal):
+
+```bash
+# 1. Clone dự án và di chuyển vào thư mục gốc
+git clone https://github.com/namhang0159/DONGHO.git
+cd DONGHO
+
+# 2. Khởi chạy toàn bộ hệ thống bằng Docker Compose
+docker compose up -d --build
+
+# 3. (Tùy chọn) Nạp dữ liệu mẫu ban đầu vào Database
+docker compose exec backend npm run seed
+```
+
+Sau khi hoàn tất, hệ thống sẽ tự động sẵn sàng tại các địa chỉ:
+- 🌐 **Client Boutique**: [http://localhost:3000](http://localhost:3000)
+- 💼 **Admin & POS Portal**: [http://localhost:3001](http://localhost:3001)
+- 🚀 **Backend API Gateway**: [http://localhost:5000](http://localhost:5000)
+- 🗄️ **MySQL Database**: `localhost:3306` (User: `root`, Password: `root_password_2026`)
+
+Để dừng toàn bộ dịch vụ:
+```bash
+docker compose down
+```
+
+---
+
+### 💻 Cách 2: Cài Đặt & Chạy Trực Tiếp Trên Máy (Local Environment)
+
+#### 1. Yêu Cầu Hệ Thống
 - **Node.js**: Phiên bản 18.x hoặc cao hơn.
 - **MySQL Database**: Phiên bản 8.0 trở lên (XAMPP / Laragon / MySQL Server).
 
