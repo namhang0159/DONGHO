@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --background: #fbf9f5; /* Royal Alabaster / Ivory Cream */
+    --foreground: #16201a; /* Obsidian Charcoal */
+    --card: #ffffff;
+    --card-foreground: #16201a;
+    --popover: #ffffff;
+    --popover-foreground: #16201a;
+    --primary: #006039; /* Official Rolex Green */
+    --primary-foreground: #ffffff;
+    --secondary: #f3efe6;
+    --secondary-foreground: #006039;
+    --muted: #eae5d9;
+    --muted-foreground: #5a665e;
+    --accent: #b38f28; /* Warm Champagne Gold */
+    --accent-foreground: #ffffff;
+    --destructive: #b91c1c;
+    --border: rgba(212, 175, 55, 0.25);
+    --input: rgba(0, 96, 57, 0.15);
+    --ring: #b38f28;
+  }
+
+  .dark {
+    --background: #070e0a; /* Deep Emerald Black */
+    --foreground: #ffffff;
+    --card: #0c1611;
+    --card-foreground: #ffffff;
+    --popover: #0c1611;
+    --popover-foreground: #ffffff;
+    --primary: #00844e; /* Rolex Luminescent Green */
+    --primary-foreground: #070e0a;
+    --secondary: #122119;
+    --secondary-foreground: #a7f3d0;
+    --muted: #101c16;
+    --muted-foreground: #9ca3af;
+    --accent: #d4af37; /* Bright Luxury Gold */
+    --accent-foreground: #000000;
+    --destructive: #ef4444;
+    --border: rgba(212, 175, 55, 0.2);
+    --input: rgba(212, 175, 55, 0.2);
+    --ring: #d4af37;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.font-serif {
+  font-family: var(--font-serif), "Playfair Display", Georgia, "Times New Roman", serif;
+  letter-spacing: -0.01em;
+}
+
+.font-editorial {
+  font-family: var(--font-serif), "Playfair Display", Georgia, serif;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* Luxury Multi-Brand & Rolex Typography */
+.luxury-title,
+.rolex-title {
+  font-family: var(--font-jakarta), sans-serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.luxury-tag,
+.rolex-tag {
+  font-family: var(--font-jakarta), sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* Official Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f3e3be;
+}
+
+/* Luxury Gold & Emerald Glow Helpers */
+.gold-glow {
+  box-shadow: 0 0 45px -5px rgba(212, 175, 55, 0.35);
+}
+
+.emerald-glow {
+  box-shadow: 0 0 50px -10px rgba(0, 96, 57, 0.45);
+}
+
+/* Haute Horlogerie Luxury Card & Shadow System */
+.luxury-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  box-shadow: 0 10px 30px -5px rgba(22, 32, 26, 0.07),
+              0 2px 8px -2px rgba(212, 175, 55, 0.06),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .luxury-card {
+  background: linear-gradient(160deg, rgba(14, 25, 19, 0.92) 0%, rgba(9, 17, 13, 0.95) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  box-shadow: 0 14px 40px -10px rgba(0, 0, 0, 0.65),
+              0 2px 10px rgba(0, 0, 0, 0.4),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+.luxury-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: 0 20px 45px -10px rgba(22, 32, 26, 0.12),
+              0 0 30px -4px rgba(212, 175, 55, 0.18),
+              inset 0 1px 0 0 rgba(255, 255, 255, 1);
+}
+
+.dark .luxury-card:hover {
+  border-color: rgba(212, 175, 55, 0.48);
+  box-shadow: 0 22px 50px -10px rgba(0, 0, 0, 0.85),
+              0 0 35px -5px rgba(212, 175, 55, 0.16),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+}
+
+/* Subtle Card Inner Inset & Surface Highlights */
+.luxury-card-inset {
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.dark .luxury-card-inset {
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scaleUp {
+  animation: scaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.2) 50%, rgba(212,175,55,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}

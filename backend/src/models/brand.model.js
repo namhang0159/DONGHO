@@ -1,0 +1,28 @@
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../config/database.js';
+
+export const Brand = sequelize.define('Brand', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  name: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+  },
+  slug: {
+    type: DataTypes.STRING(120),
+    allowNull: false,
+    unique: true,
+  },
+  country: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+  },
+}, {
+  tableName: 'brands',
+  timestamps: false,
+});
+
+export default Brand;
